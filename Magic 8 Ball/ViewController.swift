@@ -10,9 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let ballArray = [#imageLiteral(resourceName: "ball3"),#imageLiteral(resourceName: "ball2"),#imageLiteral(resourceName: "ball5"),#imageLiteral(resourceName: "ball4"),#imageLiteral(resourceName: "ball1")]
+    let ballArray = [#imageLiteral(resourceName: "ball1"),#imageLiteral(resourceName: "ball2"),#imageLiteral(resourceName: "ball5"),#imageLiteral(resourceName: "ball4"),#imageLiteral(resourceName: "ball3")]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.magicBall.alpha = 0.1
+    }
+    
+    @IBOutlet weak var magicBall: UIImageView!
+    
+    @IBAction func askButton(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2) {
+            self.magicBall.alpha = 1
+        }
 
-
-
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
+            UIView.animate(withDuration: 1.5) {
+                self.magicBall.alpha = 0.1
+            }
+        }
+        magicBall.image = ballArray[Int.random(in: 0...4)]
+    }
 }
 
